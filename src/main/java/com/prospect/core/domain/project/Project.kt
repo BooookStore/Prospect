@@ -1,7 +1,5 @@
 package com.prospect.core.domain.project
 
-import com.prospect.core.domain.feature.Feature
-
 class Project(
         val id: String,
         private var iceBoxItems: Set<String> = setOf(),
