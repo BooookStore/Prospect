@@ -47,4 +47,28 @@ class IceBoxItemsTest {
         }.isExactlyInstanceOf(IllegalArgumentException::class.java)
     }
 
+    @Test
+    fun removeTest() {
+        // (1) remove from IceBoxItems has two featureId
+        // setup
+        val hasTwo = IceBoxItems().add("1").add("2")
+
+        // execute
+        val hasOne = hasTwo.remove("1")
+
+        // verify
+        assertThat(hasTwo.size()).isEqualTo(2)
+        assertThat(hasOne.size()).isEqualTo(1)
+        assertThat(hasOne.contain("1")).isFalse()
+        assertThat(hasOne.contain("2")).isTrue()
+
+        // (2) remove from IceBoxItems has one featureId
+        // execute
+        val empty = hasOne.remove("2")
+
+        // verify
+        assertThat(hasOne.size()).isEqualTo(1)
+        assertThat(empty.isEmpty()).isTrue()
+    }
+
 }
