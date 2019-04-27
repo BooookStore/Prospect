@@ -115,4 +115,17 @@ class ProductBacklogItemsTest {
         val emptyProductBacklogItems = hasOneProductBacklogItems.remove(ProductBacklogItem("3", Priority(1)))
         assertThat(emptyProductBacklogItems.isEmpty()).isTrue()
     }
+
+    @Test
+    fun removeNotContainTest() {
+        // setup
+        val productBacklogItems = ProductBacklogItems().add(ProductBacklogItem("1", Priority.of(1)))
+
+        // execute and verify
+        assertThatThrownBy {
+            productBacklogItems.remove(ProductBacklogItem("2", Priority.of(2)))
+        }.isExactlyInstanceOf(IllegalArgumentException::class.java)
+
+        productBacklogItems.remove(ProductBacklogItem("1", Priority.of(1)))
+    }
 }

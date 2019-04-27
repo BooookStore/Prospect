@@ -21,6 +21,8 @@ data class ProductBacklogItems(private val items: Items = listOf()) {
     }
 
     fun remove(productBacklogItem: ProductBacklogItem): ProductBacklogItems = of {
+        if (!contain(productBacklogItem)) throw IllegalArgumentException("存在しないProductBacklogItemです")
+
         items.divideByPriority(productBacklogItem.priority).let { (over, under) ->
             listOf(
                     *over.toTypedArray(),
@@ -48,6 +50,8 @@ data class ProductBacklogItems(private val items: Items = listOf()) {
     private fun notContainsFeatureId(productBacklogItem: ProductBacklogItem): Boolean =
             !items.containsByFeatureId(productBacklogItem.featureId)
 
+    private fun contain(productBacklogItem: ProductBacklogItem): Boolean =
+            items.contains(productBacklogItem)
 }
 
 private typealias Items = List<ProductBacklogItem>
