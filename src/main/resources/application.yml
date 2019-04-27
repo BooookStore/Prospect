@@ -1,0 +1,4 @@
+spring.data.mongodb:
+  database: prospect
+  username: prospect
+  password: prospect
