@@ -9,15 +9,21 @@ data class ProductBacklogItems(private val items: Items = listOf()) {
     }
 
     fun add(productBacklogItem: ProductBacklogItem): ProductBacklogItems = of {
-        items.underPriority(productBacklogItem)
-                .downPriority()
-                .add(productBacklogItem)
+        items.divideByPriority(productBacklogItem).let { (over, under) ->
+            listOf(
+                    *over.toTypedArray(),
+                    *under.downPriority().toTypedArray()
+            ).add(productBacklogItem)
+        }
     }
 
     fun remove(productBacklogItem: ProductBacklogItem): ProductBacklogItems = of {
-        items.underPriority(productBacklogItem)
-                .remove(productBacklogItem)
-                .upPriority()
+        items.divideByPriority(productBacklogItem).let { (over, under) ->
+            listOf(
+                    *over.toTypedArray(),
+                    *under.remove(productBacklogItem).upPriority().toTypedArray()
+            )
+        }
     }
 
     fun isEmpty(): Boolean = items.isEmpty()
@@ -30,7 +36,11 @@ data class ProductBacklogItems(private val items: Items = listOf()) {
 
 private typealias Items = List<ProductBacklogItem>
 
-private fun Items.underPriority(productBacklogItem: ProductBacklogItem): Items = filter { it.priority <= productBacklogItem.priority }
+private fun Items.divideByPriority(productBacklogItem: ProductBacklogItem): Pair<Items, Items> {
+    val under = filter { it.priority <= productBacklogItem.priority }
+    val over = filter { it.priority > productBacklogItem.priority }
+    return Pair(over, under)
+}
 
 private fun Items.downPriority(): Items = map { it.downPriority() }
 

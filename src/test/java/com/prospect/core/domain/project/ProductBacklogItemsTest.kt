@@ -53,4 +53,37 @@ class ProductBacklogItemsTest {
                 .isEqualTo(ProductBacklogItem("1", Priority.of(3)))
     }
 
+    @Test
+    fun removeTest() {
+        // (1) remove from size 3 ProductBacklogItems in middle
+        // setup
+        val hasThreeProductBacklogItems = ProductBacklogItems()
+                .add(ProductBacklogItem("1", Priority.of(1)))
+                .add(ProductBacklogItem("2", Priority.of(2)))
+                .add(ProductBacklogItem("3", Priority.of(3)))
+
+        // execute
+        val hasTwoProductBacklogItems = hasThreeProductBacklogItems.remove(ProductBacklogItem("2", Priority.of(2)))
+
+        // verify
+        assertThat(hasTwoProductBacklogItems.size()).isEqualTo(2)
+        assertThat(hasTwoProductBacklogItems.findByPriority(Priority.of(1)))
+                .isEqualTo(ProductBacklogItem("1", Priority.of(1)))
+        assertThat(hasTwoProductBacklogItems.findByPriority(Priority.of(2)))
+                .isEqualTo(ProductBacklogItem("3", Priority.of(2)))
+
+        // (2) remove from size 2 ProductBacklogItems in head
+        // execute
+        val hasOneProductBacklogItems = hasTwoProductBacklogItems.remove(ProductBacklogItem("1", Priority.of(1)))
+
+        // verify
+        assertThat(hasOneProductBacklogItems.size()).isEqualTo(1)
+        assertThat(hasOneProductBacklogItems.findByPriority(Priority.of(1)))
+                .isEqualTo(ProductBacklogItem("3", Priority.of(1)))
+
+        // (3) remove from size 1 ProductBacklogItems
+        // execute
+        val emptyProductBacklogItems = hasOneProductBacklogItems.remove(ProductBacklogItem("3", Priority(1)))
+        assertThat(emptyProductBacklogItems.isEmpty()).isTrue()
+    }
 }
