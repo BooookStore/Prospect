@@ -1,5 +1,7 @@
 package com.prospect.core.domain.project
 
+import com.prospect.core.domain.type.Priority
+
 class Project(
         val id: String,
         var name: String,
@@ -21,6 +23,16 @@ class Project(
 
     fun removeProductBacklogItem(productBacklogItem: ProductBacklogItem) {
         productBacklogItems = productBacklogItems.remove(productBacklogItem)
+    }
+
+    fun moveIceBoxItemToProductBacklogItem(featureId: String, priority: Priority) {
+        iceBoxItems.remove(featureId)
+        productBacklogItems.add(ProductBacklogItem(featureId, priority))
+    }
+
+    fun moveProductBacklogItemToIceBoxItem(productBacklogItem: ProductBacklogItem) {
+        productBacklogItems.remove(productBacklogItem)
+        iceBoxItems.add(productBacklogItem.featureId)
     }
 
 }
