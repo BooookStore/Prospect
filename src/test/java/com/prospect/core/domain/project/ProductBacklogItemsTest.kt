@@ -69,6 +69,20 @@ class ProductBacklogItemsTest {
     }
 
     @Test
+    fun duplicateFeatureIdAddTest() {
+        // setup
+        val productBacklogItems = ProductBacklogItems().add(ProductBacklogItem("1", Priority.of(1)))
+
+        // execute and verify
+        assertThatThrownBy {
+            productBacklogItems.add(ProductBacklogItem("1", Priority.of(1)))
+        }.isExactlyInstanceOf(java.lang.IllegalArgumentException::class.java)
+
+        // verify not thrown
+        productBacklogItems.add(ProductBacklogItem("2", Priority.of(1)))
+    }
+
+    @Test
     fun removeTest() {
         // (1) remove from size 3 ProductBacklogItems in middle
         // setup
