@@ -2,16 +2,16 @@ package com.prospect.core.domain.project
 
 class Project(
         val id: String,
-        private var iceBoxItems: Set<String> = setOf(),
+        private var iceBoxItems: IceBoxItems = IceBoxItems(),
         private var productBacklogItems: ProductBacklogItems = ProductBacklogItems()
 ) {
 
     fun addIceBoxItem(featureId: String) {
-        iceBoxItems += featureId
+        iceBoxItems = iceBoxItems.add(featureId)
     }
 
     fun removeIceBoxItem(featureId: String) {
-        iceBoxItems -= featureId
+        iceBoxItems = iceBoxItems.remove(featureId)
     }
 
     fun addProductBacklogItem(productBacklogItem: ProductBacklogItem) {
