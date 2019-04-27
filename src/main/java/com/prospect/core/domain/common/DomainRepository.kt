@@ -2,7 +2,7 @@ package com.prospect.core.domain.common
 
 interface DomainRepository<ENTITY> {
 
-    fun findById(id: String)
+    fun findById(id: String): ENTITY?
 
     fun save(entity: ENTITY)
 
