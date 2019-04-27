@@ -12,7 +12,7 @@ data class ProductBacklogItems(private val items: Items = listOf()) {
         if (!allowancePriorityRange(productBacklogItem)) throw IllegalArgumentException("追加するProductBacklogItemの優先度が不正です")
         if (!notContainsFeatureId(productBacklogItem)) throw IllegalArgumentException("既に同じFeatureIdを持つProductBacklogItemが存在します")
 
-        items.divideByPriority(productBacklogItem).let { (over, under) ->
+        items.divideByPriority(productBacklogItem.priority).let { (over, under) ->
             listOf(
                     *over.toTypedArray(),
                     *under.downPriority().toTypedArray()
@@ -21,7 +21,7 @@ data class ProductBacklogItems(private val items: Items = listOf()) {
     }
 
     fun remove(productBacklogItem: ProductBacklogItem): ProductBacklogItems = of {
-        items.divideByPriority(productBacklogItem).let { (over, under) ->
+        items.divideByPriority(productBacklogItem.priority).let { (over, under) ->
             listOf(
                     *over.toTypedArray(),
                     *under.remove(productBacklogItem).upPriority().toTypedArray()
@@ -52,9 +52,9 @@ data class ProductBacklogItems(private val items: Items = listOf()) {
 
 private typealias Items = List<ProductBacklogItem>
 
-private fun Items.divideByPriority(productBacklogItem: ProductBacklogItem): Pair<Items, Items> {
-    val under = filter { it.priority <= productBacklogItem.priority }
-    val over = filter { it.priority > productBacklogItem.priority }
+private fun Items.divideByPriority(priority: Priority): Pair<Items, Items> {
+    val under = filter { it.priority <= priority }
+    val over = filter { it.priority > priority }
     return Pair(over, under)
 }
 
