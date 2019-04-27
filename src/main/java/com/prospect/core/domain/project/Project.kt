@@ -2,6 +2,7 @@ package com.prospect.core.domain.project
 
 class Project(
         val id: String,
+        var name: String,
         private var iceBoxItems: IceBoxItems = IceBoxItems(),
         private var productBacklogItems: ProductBacklogItems = ProductBacklogItems()
 ) {
