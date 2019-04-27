@@ -9,6 +9,8 @@ data class ProductBacklogItems(private val items: Items = listOf()) {
     }
 
     fun add(productBacklogItem: ProductBacklogItem): ProductBacklogItems = of {
+        if (!allowancePriorityRange(productBacklogItem)) throw IllegalArgumentException("追加するProductBacklogItemの優先度が不正です")
+
         items.divideByPriority(productBacklogItem).let { (over, under) ->
             listOf(
                     *over.toTypedArray(),
@@ -31,6 +33,16 @@ data class ProductBacklogItems(private val items: Items = listOf()) {
     fun findByPriority(priority: Priority): ProductBacklogItem? = items.findByPriority(priority)
 
     fun size(): Int = items.size
+
+    private fun allowancePriorityRange(productBacklogItem: ProductBacklogItem): Boolean {
+        val lowestProductBacklog = items.lastPriority()
+        return if (lowestProductBacklog == null) {
+            productBacklogItem.priority == Priority.of(1)
+        } else {
+            val allowanceLowestPriority = lowestProductBacklog.priority.down()
+            productBacklogItem.priority >= allowanceLowestPriority
+        }
+    }
 
 }
 
@@ -61,3 +73,5 @@ private fun Items.remove(productBacklogItem: ProductBacklogItem): Items {
 }
 
 private fun Items.findByPriority(priority: Priority): ProductBacklogItem? = firstOrNull { it.priority == priority }
+
+private fun Items.lastPriority(): ProductBacklogItem? = sortedBy { it.priority }.firstOrNull()

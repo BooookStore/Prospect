@@ -2,6 +2,7 @@ package com.prospect.core.domain.project
 
 import com.prospect.core.domain.type.Priority
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
 
 class ProductBacklogItemsTest {
@@ -51,6 +52,20 @@ class ProductBacklogItemsTest {
                 .isEqualTo(ProductBacklogItem("3", Priority.of(2)))
         assertThat(hasThreeProductBacklogItem.findByPriority(Priority.of(3)))
                 .isEqualTo(ProductBacklogItem("1", Priority.of(3)))
+    }
+
+    @Test
+    fun illegalPriorityProductBacklogItemAddTest() {
+        // setup
+        val productBacklogItems = ProductBacklogItems().add(ProductBacklogItem("1", Priority.of(1)))
+
+        // execute and verify
+        assertThatThrownBy {
+            productBacklogItems.add(ProductBacklogItem("2", Priority.of(3)))
+        }.isExactlyInstanceOf(IllegalArgumentException::class.java)
+
+        // verify not thrown
+        productBacklogItems.add(ProductBacklogItem("2", Priority.of(2)))
     }
 
     @Test
