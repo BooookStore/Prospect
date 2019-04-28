@@ -14,8 +14,18 @@ class ProjectApplicationService(private val projectRepository: ProjectRepository
     }
 
     fun delete(id: String) {
-        val aRemoveTargetProject = projectRepository.findById(id) ?: throw IllegalArgumentException("存在しないProjectです")
+        val aRemoveTargetProject = findNotNullProject(id)
         projectRepository.remove(aRemoveTargetProject)
+    }
+
+    fun rename(id: String, anNewName: String) {
+        val aProject = findNotNullProject(id)
+        aProject.name = anNewName
+        projectRepository.save(aProject)
+    }
+
+    private fun findNotNullProject(id: String): Project {
+        return projectRepository.findById(id) ?: throw IllegalArgumentException("存在しないProjectです")
     }
 
 }
