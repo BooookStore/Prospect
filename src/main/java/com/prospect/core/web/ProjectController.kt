@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("project")
 class ProjectController(private val projectApplicationService: ProjectApplicationService) {
 
-    @PutMapping
+    @PostMapping
     fun create(@RequestBody aCommand: CreateProjectJSONCommand) {
         projectApplicationService.create(aCommand.name)
+    }
+
+    @PutMapping("{projectId}/name")
+    fun rename(@PathVariable projectId: String, @RequestBody aCommand: RenameProjectJSONCommand) {
+        projectApplicationService.rename(projectId, aCommand.name)
     }
 
     @DeleteMapping("{projectId}")
@@ -20,3 +25,5 @@ class ProjectController(private val projectApplicationService: ProjectApplicatio
 }
 
 data class CreateProjectJSONCommand(val name: String)
+
+data class RenameProjectJSONCommand(val name: String)
