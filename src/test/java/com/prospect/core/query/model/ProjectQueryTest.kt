@@ -33,24 +33,24 @@ class ProjectQueryTest {
         mongoTemplate.save(Project("4", "D"))
 
         // execute
-        projectQuery.find(Criteria(2, 0, SORT.NAME)).let { projects ->
+        projectQuery.find(Criteria(2, 0, "name")).let { projects ->
             // verify
             assertThat(projects)
                     .hasSize(2)
                     .containsSequence(
-                            Project("1", "A"),
-                            Project("2", "B")
+                            ProjectOverviewModel("1", "A"),
+                            ProjectOverviewModel("2", "B")
                     )
         }
 
         // execute
-        projectQuery.find(Criteria(2, 1, SORT.NAME)).let { projects ->
+        projectQuery.find(Criteria(2, 1, "name")).let { projects ->
             // verify
             assertThat(projects)
                     .hasSize(2)
                     .containsSequence(
-                            Project("3", "C"),
-                            Project("4", "D")
+                            ProjectOverviewModel("3", "C"),
+                            ProjectOverviewModel("4", "D")
                     )
         }
     }
