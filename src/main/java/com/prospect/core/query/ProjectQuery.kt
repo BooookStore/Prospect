@@ -1,6 +1,7 @@
-package com.prospect.core.query.model
+package com.prospect.core.query
 
 import com.prospect.core.domain.project.Project
+import com.prospect.core.query.model.ProjectOverviewModel
 import org.springframework.data.domain.Sort.Direction.ASC
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.aggregation.Aggregation.*

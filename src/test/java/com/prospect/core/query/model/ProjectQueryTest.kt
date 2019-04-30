@@ -1,6 +1,8 @@
 package com.prospect.core.query.model
 
 import com.prospect.core.domain.project.Project
+import com.prospect.core.query.Criteria
+import com.prospect.core.query.ProjectQuery
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test

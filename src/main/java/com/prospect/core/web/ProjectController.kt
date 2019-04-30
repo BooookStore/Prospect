@@ -1,9 +1,9 @@
 package com.prospect.core.web
 
 import com.prospect.core.applicationservice.project.ProjectApplicationService
-import com.prospect.core.query.model.Criteria
+import com.prospect.core.query.Criteria
+import com.prospect.core.query.ProjectQuery
 import com.prospect.core.query.model.ProjectOverviewModel
-import com.prospect.core.query.model.ProjectQuery
 import org.springframework.web.bind.annotation.*
 
 @RestController
