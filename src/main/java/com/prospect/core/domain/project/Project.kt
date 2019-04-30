@@ -2,7 +2,7 @@ package com.prospect.core.domain.project
 
 import com.prospect.core.domain.type.Priority
 
-class Project(
+data class Project(
         val id: String,
         var name: String,
         private var iceBoxItems: IceBoxItems = IceBoxItems(),
