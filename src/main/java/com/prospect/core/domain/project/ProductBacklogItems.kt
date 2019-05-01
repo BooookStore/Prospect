@@ -2,7 +2,7 @@ package com.prospect.core.domain.project
 
 import com.prospect.core.domain.type.Priority
 
-data class ProductBacklogItems(private val items: List<ProductBacklogItem> = listOf()) {
+data class ProductBacklogItems(val items: List<ProductBacklogItem> = listOf()) {
 
     companion object {
         fun of(lamb: () -> List<ProductBacklogItem>): ProductBacklogItems = ProductBacklogItems(lamb())

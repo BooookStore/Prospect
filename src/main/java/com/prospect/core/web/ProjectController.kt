@@ -1,8 +1,9 @@
 package com.prospect.core.web
 
 import com.prospect.core.applicationservice.project.ProjectApplicationService
-import com.prospect.core.query.Criteria
+import com.prospect.core.query.ProjectCriteria
 import com.prospect.core.query.ProjectQuery
+import com.prospect.core.query.model.ProjectDetailModel
 import com.prospect.core.query.model.ProjectOverviewModel
 import org.springframework.web.bind.annotation.*
 
@@ -14,8 +15,13 @@ class ProjectController(
 ) {
 
     @GetMapping
-    fun queryOverview(@RequestBody criteria: Criteria): List<ProjectOverviewModel> {
-        return projectQuery.find(criteria)
+    fun queryOverview(@RequestBody projectCriteria: ProjectCriteria): List<ProjectOverviewModel> {
+        return projectQuery.find(projectCriteria)
+    }
+
+    @GetMapping("/{projectId}")
+    fun queryDetail(@PathVariable projectId: String): ProjectDetailModel {
+        return projectQuery.findById(projectId)
     }
 
     @PostMapping
@@ -23,12 +29,12 @@ class ProjectController(
         projectApplicationService.create(aCommand.name)
     }
 
-    @PutMapping("{projectId}/name")
+    @PutMapping("/{projectId}/name")
     fun rename(@PathVariable projectId: String, @RequestBody aCommand: RenameProjectJSONCommand) {
         projectApplicationService.rename(projectId, aCommand.name)
     }
 
-    @DeleteMapping("{projectId}")
+    @DeleteMapping("/{projectId}")
     fun delete(@PathVariable projectId: String) {
         projectApplicationService.delete(projectId)
     }

@@ -1,6 +1,6 @@
 package com.prospect.core.domain.project
 
-data class IceBoxItems(private val items: List<String> = listOf()){
+data class IceBoxItems(val items: List<String> = listOf()){
 
     fun add(featureId: String): IceBoxItems {
         if (contain(featureId)) throw IllegalArgumentException("既に存在するFeatureです")

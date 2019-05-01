@@ -5,8 +5,8 @@ import com.prospect.core.domain.type.Priority
 data class Project(
         val id: String,
         var name: String,
-        private var iceBoxItems: IceBoxItems = IceBoxItems(),
-        private var productBacklogItems: ProductBacklogItems = ProductBacklogItems()
+        var iceBoxItems: IceBoxItems = IceBoxItems(),
+        var productBacklogItems: ProductBacklogItems = ProductBacklogItems()
 ) {
 
     fun addIceBoxItem(featureId: String) {
