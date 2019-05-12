@@ -14,7 +14,6 @@ import org.springframework.data.mongodb.core.query.Criteria.where
 import org.springframework.data.mongodb.core.query.Query.query
 import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.http.MediaType
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -34,9 +33,6 @@ class IceBoxItemControllerTest {
     @Autowired
     lateinit var objectMapper: ObjectMapper
 
-    @Autowired
-    lateinit var mapper: MappingJackson2HttpMessageConverter
-
     lateinit var mockMvc: MockMvc
 
     @Before
@@ -52,8 +48,7 @@ class IceBoxItemControllerTest {
         val jsonContent = objectMapper.writeValueAsString(AddIceBoxItemCommand(
                 title = "後払いできる",
                 description = "顧客は注文金額をQRコードを用いて後払いすることができる",
-                point = 0,
-                status = "iceBoxItem"
+                point = 0
         ))
 
         // execute
