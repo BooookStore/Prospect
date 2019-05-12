@@ -52,7 +52,8 @@ class IceBoxItemControllerTest {
         val jsonContent = objectMapper.writeValueAsString(AddIceBoxItemCommand(
                 title = "後払いできる",
                 description = "顧客は注文金額をQRコードを用いて後払いすることができる",
-                point = 0
+                point = 0,
+                status = "iceBoxItem"
         ))
 
         // execute

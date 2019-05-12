@@ -14,11 +14,12 @@ class IceBoxItemController(private val featureApplicationService: FeatureApplica
 
     @PostMapping
     fun add(@PathVariable projectId: String, @Valid @RequestBody aCommand: AddIceBoxItemCommand) {
-        featureApplicationService.addIceBoxItem(FeatureAddCommand(
+        featureApplicationService.add(FeatureAddCommand(
                 projectId = projectId,
                 title = aCommand.title,
                 description = aCommand.description,
-                point = Point.of(aCommand.point)
+                point = Point.of(aCommand.point),
+                status = aCommand.status
         ))
     }
 
@@ -30,5 +31,7 @@ data class AddIceBoxItemCommand(
         @field:NotBlank
         val description: String,
         @field:Min(value = 0)
-        val point: Int
+        val point: Int,
+        @field:NotBlank
+        val status: String
 )
