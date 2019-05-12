@@ -11,4 +11,6 @@ data class ProductBacklogItem(
 
     fun upPriority(): ProductBacklogItem = ProductBacklogItem(featureId, priority.up())
 
+    fun changePriority(priority: Priority) = ProductBacklogItem(featureId, priority)
+
 }

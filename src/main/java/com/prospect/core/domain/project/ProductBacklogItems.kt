@@ -9,7 +9,7 @@ data class ProductBacklogItems(val items: List<ProductBacklogItem> = listOf()) {
     }
 
     fun add(productBacklogItem: ProductBacklogItem): ProductBacklogItems = of {
-        if (!allowancePriorityRange(productBacklogItem)) throw IllegalArgumentException("追加するProductBacklogItemの優先度が不正です")
+        if (!allowancePriorityRange(productBacklogItem)) throw NotAllowancePriorityException()
         if (!notContainsFeatureId(productBacklogItem)) throw IllegalArgumentException("既に同じFeatureIdを持つProductBacklogItemが存在します")
 
         items.divideByPriority(productBacklogItem.priority).let { (over, under) ->
@@ -35,6 +35,8 @@ data class ProductBacklogItems(val items: List<ProductBacklogItem> = listOf()) {
 
     fun findByPriority(priority: Priority): ProductBacklogItem? = items.findByPriority(priority)
 
+    fun findLowestProductBacklogItem(): ProductBacklogItem? = items.lastPriority()
+
     fun size(): Int = items.size
 
     private fun allowancePriorityRange(productBacklogItem: ProductBacklogItem): Boolean {
@@ -52,6 +54,7 @@ data class ProductBacklogItems(val items: List<ProductBacklogItem> = listOf()) {
 
     private fun contain(productBacklogItem: ProductBacklogItem): Boolean =
             items.contains(productBacklogItem)
+
 }
 
 private fun List<ProductBacklogItem>.divideByPriority(priority: Priority): Pair<List<ProductBacklogItem>, List<ProductBacklogItem>> {

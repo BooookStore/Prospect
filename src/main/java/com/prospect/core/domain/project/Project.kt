@@ -21,6 +21,10 @@ data class Project(
         productBacklogItems = productBacklogItems.add(productBacklogItem)
     }
 
+    fun findLowestProductBacklogItem(): ProductBacklogItem? {
+        return productBacklogItems.findLowestProductBacklogItem()
+    }
+
     fun removeProductBacklogItem(productBacklogItem: ProductBacklogItem) {
         productBacklogItems = productBacklogItems.remove(productBacklogItem)
     }

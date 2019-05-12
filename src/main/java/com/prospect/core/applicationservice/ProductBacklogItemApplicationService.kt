@@ -4,18 +4,19 @@ import com.prospect.core.domain.common.DomainEventPublisher
 import com.prospect.core.domain.common.nexIdentify
 import com.prospect.core.domain.feature.Feature
 import com.prospect.core.domain.feature.FeatureRepository
-import com.prospect.core.domain.feature.IceBoxItemCreatedEvent
+import com.prospect.core.domain.feature.ProductBacklogItemCreatedEvent
 import com.prospect.core.domain.project.ProjectRepository
 import com.prospect.core.domain.type.Point
+import com.prospect.core.domain.type.Priority
 import org.springframework.stereotype.Service
 
 @Service
-class IceBoxItemApplicationService(
-        private val featureRepository: FeatureRepository,
-        private val projectRepository: ProjectRepository
+class ProductBacklogItemApplicationService(
+        private val projectRepository: ProjectRepository,
+        private val featureRepository: FeatureRepository
 ) {
 
-    fun addIceBoxItem(aCommand: IceBoxItemAddCommand) {
+    fun addProductBacklogItem(aCommand: ProductBacklogItemAddCommand) {
         projectRepository.findById(aCommand.projectId) ?: throw IllegalArgumentException("存在しないProjectです")
 
         val anNewFeature = Feature(
@@ -27,9 +28,10 @@ class IceBoxItemApplicationService(
 
         featureRepository.save(anNewFeature)
 
-        val event = IceBoxItemCreatedEvent(
+        val event = ProductBacklogItemCreatedEvent(
                 projectId = aCommand.projectId,
-                featureId = anNewFeature.id
+                featureId = anNewFeature.id,
+                priority = Priority.of(aCommand.priority)
         )
 
         DomainEventPublisher.publish(event)
@@ -37,10 +39,11 @@ class IceBoxItemApplicationService(
 
 }
 
-data class IceBoxItemAddCommand(
+data class ProductBacklogItemAddCommand(
         val projectId: String,
         val title: String,
         val description: String,
-        val point: Point?
+        val point: Point?,
+        val priority: Int
 )
 

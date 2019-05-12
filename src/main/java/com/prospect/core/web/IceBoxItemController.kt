@@ -1,6 +1,6 @@
 package com.prospect.core.web
 
-import com.prospect.core.applicationservice.FeatureAddCommand
+import com.prospect.core.applicationservice.IceBoxItemAddCommand
 import com.prospect.core.applicationservice.IceBoxItemApplicationService
 import com.prospect.core.domain.type.Point
 import org.springframework.web.bind.annotation.*
@@ -14,7 +14,7 @@ class IceBoxItemController(private val iceBoxItemApplicationService: IceBoxItemA
 
     @PostMapping
     fun add(@PathVariable projectId: String, @Valid @RequestBody aCommand: AddIceBoxItemCommand) {
-        iceBoxItemApplicationService.addIceBoxItem(FeatureAddCommand(
+        iceBoxItemApplicationService.addIceBoxItem(IceBoxItemAddCommand(
                 projectId = projectId,
                 title = aCommand.title,
                 description = aCommand.description,
