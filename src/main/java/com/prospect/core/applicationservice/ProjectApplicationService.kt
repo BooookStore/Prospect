@@ -1,4 +1,4 @@
-package com.prospect.core.applicationservice.project
+package com.prospect.core.applicationservice
 
 import com.prospect.core.domain.common.nexIdentify
 import com.prospect.core.domain.project.Project

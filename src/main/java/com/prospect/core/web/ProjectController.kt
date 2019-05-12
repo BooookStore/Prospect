@@ -1,6 +1,6 @@
 package com.prospect.core.web
 
-import com.prospect.core.applicationservice.project.ProjectApplicationService
+import com.prospect.core.applicationservice.ProjectApplicationService
 import com.prospect.core.query.ProjectCriteria
 import com.prospect.core.query.ProjectQuery
 import com.prospect.core.query.model.ProjectDetailModel
