@@ -21,7 +21,7 @@ data class Project(
         productBacklogItems = productBacklogItems.add(productBacklogItem)
     }
 
-    fun addProductBacklogItemToLastPriority(featureId: String) {
+    fun addProductBacklogItemToLowestPriority(featureId: String) {
         val newProductBacklogItem = ProductBacklogItem(featureId, lowestPriorityOfProductBacklogItems())
         addProductBacklogItem(newProductBacklogItem)
     }

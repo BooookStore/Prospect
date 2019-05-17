@@ -7,7 +7,6 @@ import com.prospect.core.domain.feature.FeatureRepository
 import com.prospect.core.domain.feature.ProductBacklogItemCreatedEvent
 import com.prospect.core.domain.project.ProjectRepository
 import com.prospect.core.domain.type.Point
-import com.prospect.core.domain.type.Priority
 import org.springframework.stereotype.Service
 
 @Service
@@ -30,8 +29,7 @@ class ProductBacklogItemApplicationService(
 
         val event = ProductBacklogItemCreatedEvent(
                 projectId = aCommand.projectId,
-                featureId = anNewFeature.id,
-                priority = Priority.of(aCommand.priority)
+                featureId = anNewFeature.id
         )
 
         DomainEventPublisher.publish(event)
@@ -43,7 +41,6 @@ data class ProductBacklogItemAddCommand(
         val projectId: String,
         val title: String,
         val description: String,
-        val point: Point?,
-        val priority: Int
+        val point: Point?
 )
 

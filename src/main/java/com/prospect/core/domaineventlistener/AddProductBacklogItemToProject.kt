@@ -29,7 +29,7 @@ class AddProductBacklogItemToProject(private val projectRepository: ProjectRepos
         val project = projectRepository.findById(listenedEvent.projectId)
                 ?: throw IllegalArgumentException("存在しないProjectです")
 
-        project.addProductBacklogItemToLastPriority(listenedEvent.featureId)
+        project.addProductBacklogItemToLowestPriority(listenedEvent.featureId)
 
         projectRepository.save(project)
     }
