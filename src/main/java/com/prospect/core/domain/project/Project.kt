@@ -41,9 +41,9 @@ data class Project(
     }
 
     private fun lowestPriorityOfProductBacklogItems(): Priority =
-            lowestPriorityProductBacklogItems()?.priority ?: Priority.of(1)
+            productBacklogItemOfLowestPriority()?.priority ?: Priority.of(1)
 
-    private fun lowestPriorityProductBacklogItems(): ProductBacklogItem? =
+    private fun productBacklogItemOfLowestPriority(): ProductBacklogItem? =
             productBacklogItems.findLowestProductBacklogItem()
 
 
