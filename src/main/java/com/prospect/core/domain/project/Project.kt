@@ -21,8 +21,9 @@ data class Project(
         productBacklogItems = productBacklogItems.add(productBacklogItem)
     }
 
-    fun findLowestProductBacklogItem(): ProductBacklogItem? {
-        return productBacklogItems.findLowestProductBacklogItem()
+    fun addProductBacklogItemToLastPriority(featureId: String) {
+        val newProductBacklogItem = ProductBacklogItem(featureId, lowestPriorityOfProductBacklogItems())
+        addProductBacklogItem(newProductBacklogItem)
     }
 
     fun removeProductBacklogItem(productBacklogItem: ProductBacklogItem) {
@@ -38,5 +39,12 @@ data class Project(
         productBacklogItems.remove(productBacklogItem)
         iceBoxItems.add(productBacklogItem.featureId)
     }
+
+    private fun lowestPriorityOfProductBacklogItems(): Priority =
+            lowestPriorityProductBacklogItems()?.priority ?: Priority.of(1)
+
+    private fun lowestPriorityProductBacklogItems(): ProductBacklogItem? =
+            productBacklogItems.findLowestProductBacklogItem()
+
 
 }
