@@ -1,4 +1,4 @@
-package com.prospect.core.domain.type
+package com.prospect.core.domain.feature
 
 data class Order(val value: Int) : Comparable<Order> {
 

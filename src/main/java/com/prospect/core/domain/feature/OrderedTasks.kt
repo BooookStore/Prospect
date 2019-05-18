@@ -1,7 +1,5 @@
 package com.prospect.core.domain.feature
 
-import com.prospect.core.domain.type.Order
-
 data class OrderedTasks(val tasks: List<OrderedTask> = listOf()) {
 
     companion object {

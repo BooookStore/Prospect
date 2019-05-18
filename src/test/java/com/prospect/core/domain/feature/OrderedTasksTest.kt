@@ -1,6 +1,5 @@
 package com.prospect.core.domain.feature
 
-import com.prospect.core.domain.type.Order
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
