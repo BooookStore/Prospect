@@ -15,7 +15,7 @@ class IceBoxItemApplicationService(
         private val projectRepository: ProjectRepository
 ) {
 
-    fun addIceBoxItem(aCommand: IceBoxItemAddCommand) {
+    fun addIceBoxItem(aCommand: AddIceBoxItemCommand) {
         projectRepository.findById(aCommand.projectId) ?: throw IllegalArgumentException("存在しないProjectです")
 
         val anNewFeature = Feature(
@@ -37,7 +37,7 @@ class IceBoxItemApplicationService(
 
 }
 
-data class IceBoxItemAddCommand(
+data class AddIceBoxItemCommand(
         val projectId: String,
         val title: String,
         val description: String,

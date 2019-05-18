@@ -45,7 +45,7 @@ class IceBoxItemControllerTest {
         // setup
         mongoTemplate.save(Project("1", "CafeRenewalProject"))
 
-        val jsonContent = objectMapper.writeValueAsString(AddIceBoxItemCommand(
+        val jsonContent = objectMapper.writeValueAsString(AddIceBoxItemCommandJSON(
                 title = "後払いできる",
                 description = "顧客は注文金額をQRコードを用いて後払いすることができる",
                 point = 0

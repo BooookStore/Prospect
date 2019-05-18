@@ -1,6 +1,6 @@
 package com.prospect.core.web
 
-import com.prospect.core.applicationservice.IceBoxItemAddCommand
+import com.prospect.core.applicationservice.AddIceBoxItemCommand
 import com.prospect.core.applicationservice.IceBoxItemApplicationService
 import com.prospect.core.domain.type.Point
 import org.springframework.web.bind.annotation.*
@@ -13,8 +13,8 @@ import javax.validation.constraints.NotBlank
 class IceBoxItemController(private val iceBoxItemApplicationService: IceBoxItemApplicationService) {
 
     @PostMapping
-    fun add(@PathVariable projectId: String, @Valid @RequestBody aCommand: AddIceBoxItemCommand) {
-        iceBoxItemApplicationService.addIceBoxItem(IceBoxItemAddCommand(
+    fun add(@PathVariable projectId: String, @Valid @RequestBody aCommand: AddIceBoxItemCommandJSON) {
+        iceBoxItemApplicationService.addIceBoxItem(AddIceBoxItemCommand(
                 projectId = projectId,
                 title = aCommand.title,
                 description = aCommand.description,
@@ -24,7 +24,7 @@ class IceBoxItemController(private val iceBoxItemApplicationService: IceBoxItemA
 
 }
 
-data class AddIceBoxItemCommand(
+data class AddIceBoxItemCommandJSON(
         @field:NotBlank
         val title: String,
         @field:NotBlank
