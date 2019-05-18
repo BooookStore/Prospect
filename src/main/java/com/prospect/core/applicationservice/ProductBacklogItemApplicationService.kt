@@ -15,7 +15,7 @@ class ProductBacklogItemApplicationService(
         private val featureRepository: FeatureRepository
 ) {
 
-    fun addProductBacklogItem(aCommand: ProductBacklogItemAddCommand) {
+    fun addProductBacklogItem(aCommand: AddProductBacklogItemCommand) {
         projectRepository.findById(aCommand.projectId) ?: throw IllegalArgumentException("存在しないProjectです")
 
         val anNewFeature = Feature(
@@ -37,7 +37,7 @@ class ProductBacklogItemApplicationService(
 
 }
 
-data class ProductBacklogItemAddCommand(
+data class AddProductBacklogItemCommand(
         val projectId: String,
         val title: String,
         val description: String,

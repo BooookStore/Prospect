@@ -32,7 +32,7 @@ class ProductBacklogItemApplicationServiceTest {
 
         // execute
         productBacklogItemApplicationService.addProductBacklogItem(
-                ProductBacklogItemAddCommand(
+                AddProductBacklogItemCommand(
                         projectId = "1",
                         title = "メール配信できる",
                         description = "特定のグループにメールを配信できる",
