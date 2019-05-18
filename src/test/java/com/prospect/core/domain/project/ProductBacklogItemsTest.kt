@@ -62,7 +62,7 @@ class ProductBacklogItemsTest {
         // execute and verify
         assertThatThrownBy {
             productBacklogItems.add(ProductBacklogItem("2", Priority.of(3)))
-        }.isExactlyInstanceOf(NotAllowancePriorityException::class.java)
+        }.isExactlyInstanceOf(NotAllowanceProductBacklogItemPriorityException::class.java)
 
         // verify not thrown
         productBacklogItems.add(ProductBacklogItem("2", Priority.of(2)))

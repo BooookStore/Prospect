@@ -9,7 +9,7 @@ data class ProductBacklogItems(val items: List<ProductBacklogItem> = listOf()) {
     }
 
     fun add(productBacklogItem: ProductBacklogItem): ProductBacklogItems = of {
-        if (!allowancePriorityRange(productBacklogItem)) throw NotAllowancePriorityException()
+        if (!allowancePriorityRange(productBacklogItem)) throw NotAllowanceProductBacklogItemPriorityException()
         if (!notContainsFeatureId(productBacklogItem)) throw IllegalArgumentException("既に同じFeatureIdを持つProductBacklogItemが存在します")
 
         items.divideByPriority(productBacklogItem.priority).let { (over, under) ->
