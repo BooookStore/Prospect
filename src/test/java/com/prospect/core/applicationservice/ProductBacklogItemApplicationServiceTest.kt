@@ -1,8 +1,8 @@
 package com.prospect.core.applicationservice
 
 import com.prospect.core.domain.feature.Feature
+import com.prospect.core.domain.feature.Point
 import com.prospect.core.domain.project.Project
-import com.prospect.core.domain.type.Point
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith

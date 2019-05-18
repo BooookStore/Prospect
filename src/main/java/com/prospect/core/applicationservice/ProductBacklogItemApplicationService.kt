@@ -4,9 +4,9 @@ import com.prospect.core.domain.common.DomainEventPublisher
 import com.prospect.core.domain.common.nexIdentify
 import com.prospect.core.domain.feature.Feature
 import com.prospect.core.domain.feature.FeatureRepository
+import com.prospect.core.domain.feature.Point
 import com.prospect.core.domain.feature.ProductBacklogItemCreatedEvent
 import com.prospect.core.domain.project.ProjectRepository
-import com.prospect.core.domain.type.Point
 import org.springframework.stereotype.Service
 
 @Service

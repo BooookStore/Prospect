@@ -1,5 +1,6 @@
 package com.prospect.core.domain.type
 
+import com.prospect.core.domain.feature.Point
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

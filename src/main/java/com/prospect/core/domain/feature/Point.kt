@@ -1,4 +1,4 @@
-package com.prospect.core.domain.type
+package com.prospect.core.domain.feature
 
 data class Point(val value: Int) : Comparable<Point> {
 

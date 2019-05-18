@@ -1,7 +1,7 @@
 package com.prospect.core.applicationservice
 
 import com.prospect.core.domain.feature.FeatureRepository
-import com.prospect.core.domain.type.Point
+import com.prospect.core.domain.feature.Point
 import org.springframework.stereotype.Service
 
 @Service

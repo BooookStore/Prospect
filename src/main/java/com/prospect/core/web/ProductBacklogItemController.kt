@@ -2,7 +2,7 @@ package com.prospect.core.web
 
 import com.prospect.core.applicationservice.AddProductBacklogItemCommand
 import com.prospect.core.applicationservice.ProductBacklogItemApplicationService
-import com.prospect.core.domain.type.Point
+import com.prospect.core.domain.feature.Point
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 import javax.validation.constraints.Min
