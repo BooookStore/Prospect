@@ -37,7 +37,7 @@ data class ProductBacklogItems(val orderedItems: OrderedCollection<ProductBacklo
         return if (lowestProductBacklog == null) {
             productBacklogItem.priority == Priority.of(1)
         } else {
-            val allowanceLowestPriority = lowestProductBacklog.priority.down()
+            val allowanceLowestPriority = lowestProductBacklog.downPriority().priority
             productBacklogItem.priority >= allowanceLowestPriority
         }
     }
