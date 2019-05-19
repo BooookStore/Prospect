@@ -12,14 +12,11 @@ import java.util.logging.Logger
  * ProductBacklogItemをProjectに追加する。
  *
  * 追加されるProductBacklogItemのPriorityはProjectの最低になる。
- *
- * ProductBacklogItemの作成と同時にPriorityの変更を行う事は出来ないため、
- * 別途Priorityの変更をProjectに対して要求しなくてはならない。
  */
 @Component
-class AddProductBacklogItemToProject(private val projectRepository: ProjectRepository) {
+class AddProductBacklogItemToProjectWithLowestPriority(private val projectRepository: ProjectRepository) {
 
-    private val logger: Logger = Logger.getLogger(AddProductBacklogItemToProject::class.java.canonicalName)
+    private val logger: Logger = Logger.getLogger(AddProductBacklogItemToProjectWithLowestPriority::class.java.canonicalName)
 
     @EventListener
     @Async
