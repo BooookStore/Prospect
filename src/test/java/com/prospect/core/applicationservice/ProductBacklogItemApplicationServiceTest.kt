@@ -46,7 +46,7 @@ class ProductBacklogItemApplicationServiceTest {
 
         // verify project updated
         val project: Project? = mongoTemplate.findOne(query(where("id").isEqualTo("1")))
-        assertThat(project!!.productBacklogItems.items).hasSize(1)
+        assertThat(project!!.productBacklogItems.orderedItems.elements).hasSize(1)
     }
 
 }

@@ -3,12 +3,10 @@ package com.prospect.core.domain.project
 import com.prospect.core.domain.type.OrderedCollection
 import com.prospect.core.domain.type.Priority
 
-data class ProductBacklogItems(val items: List<ProductBacklogItem> = listOf()) {
-
-    private val orderedItems: OrderedCollection<ProductBacklogItem> = OrderedCollection.of(items)
+data class ProductBacklogItems(val orderedItems: OrderedCollection<ProductBacklogItem> = OrderedCollection.of(listOf())) {
 
     companion object {
-        fun of(lamb: () -> List<ProductBacklogItem>): ProductBacklogItems = ProductBacklogItems(lamb())
+        fun of(lamb: () -> OrderedCollection<ProductBacklogItem>): ProductBacklogItems = ProductBacklogItems(lamb())
     }
 
     fun add(productBacklogItem: ProductBacklogItem): ProductBacklogItems = of {
@@ -16,30 +14,26 @@ data class ProductBacklogItems(val items: List<ProductBacklogItem> = listOf()) {
         if (!notContainsFeatureId(productBacklogItem)) throw IllegalArgumentException("既に同じFeatureIdを持つProductBacklogItemが存在します")
 
         val (over, under) = orderedItems.divideByPriority { it.priority <= productBacklogItem.priority }
-        val newOrderedItems = under.downOrder { it.downPriority() }.addAll(over).add(productBacklogItem)
-
-        newOrderedItems.elements
+        under.downOrder { it.downPriority() }.addAll(over).add(productBacklogItem)
     }
 
     fun remove(productBacklogItem: ProductBacklogItem): ProductBacklogItems = of {
         if (!contain(productBacklogItem)) throw IllegalArgumentException("存在しないProductBacklogItemです")
 
         val (over, under) = orderedItems.divideByPriority { it.priority <= productBacklogItem.priority }
-        val newOrderedItems = under.remove(productBacklogItem).upOrder { it.upPriority() }.addAll(over)
-
-        newOrderedItems.elements
+        under.remove(productBacklogItem).upOrder { it.upPriority() }.addAll(over)
     }
 
-    fun isEmpty(): Boolean = items.isEmpty()
+    fun findByPriority(priority: Priority): ProductBacklogItem? = orderedItems.elements.firstOrNull { it.priority == priority }
 
-    fun findByPriority(priority: Priority): ProductBacklogItem? = items.firstOrNull { it.priority == priority }
+    fun findLowestProductBacklogItem(): ProductBacklogItem? = orderedItems.elements.sortedBy { it.priority }.firstOrNull()
 
-    fun findLowestProductBacklogItem(): ProductBacklogItem? = items.sortedBy { it.priority }.firstOrNull()
+    fun isEmpty(): Boolean = orderedItems.elements.isEmpty()
 
-    fun size(): Int = items.size
+    fun size(): Int = orderedItems.elements.size
 
     private fun allowancePriorityRange(productBacklogItem: ProductBacklogItem): Boolean {
-        val lowestProductBacklog = items.sortedBy { it.priority }.firstOrNull()
+        val lowestProductBacklog = findLowestProductBacklogItem()
         return if (lowestProductBacklog == null) {
             productBacklogItem.priority == Priority.of(1)
         } else {
@@ -49,9 +43,9 @@ data class ProductBacklogItems(val items: List<ProductBacklogItem> = listOf()) {
     }
 
     private fun notContainsFeatureId(productBacklogItem: ProductBacklogItem): Boolean =
-            !items.any { it.featureId == productBacklogItem.featureId }
+            !orderedItems.elements.any { it.featureId == productBacklogItem.featureId }
 
     private fun contain(productBacklogItem: ProductBacklogItem): Boolean =
-            items.contains(productBacklogItem)
+            orderedItems.elements.contains(productBacklogItem)
 
 }

@@ -46,7 +46,7 @@ data class ProjectCriteria(
 
 private fun Project.toProjectDetailModel(): ProjectDetailModel {
     val iceBoxItems = iceBoxItems.items.toList()
-    val productBacklogItemModels = productBacklogItems.items.map { ProductBacklogItemModel(it.featureId, it.priority.value) }
+    val productBacklogItemModels = productBacklogItems.orderedItems.elements.map { ProductBacklogItemModel(it.featureId, it.priority.value) }
 
     return ProjectDetailModel(
             id,
